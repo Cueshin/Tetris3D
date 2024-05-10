@@ -11,11 +11,15 @@ public class Block_Movement : MonoBehaviour
     public float _horizontalMoveInput;
     public float _verticalMoveInput;  
     public bool _movingHorizontal;
+    public bool _lockPosition;
+    public Rigidbody _rigidbody;
 
     // Start is called before the first frame update
     void Start()
     {
         _movingHorizontal = false;
+
+        _lockPosition = false;
 
         _currentPosition = transform.position;
         _currentRotation = Quaternion.Euler(0, 0, 0);
@@ -30,8 +34,18 @@ public class Block_Movement : MonoBehaviour
     
     private void MoveBlock()
     {
+        if (_lockPosition == true)
+            return;
+        
+
         MoveBlockHorizontal();
         RotateBlockVertical();
+        
+        if(transform.position.y == 0)
+        {
+            FreezeConstraints();
+            return;
+        }
 
         if (_movingHorizontal == true)
             return;
@@ -90,5 +104,23 @@ public class Block_Movement : MonoBehaviour
         {
             transform.Rotate(transform.position.x - 90, 0, 0, Space.Self);
         }
+    }
+    private void OnCollisionEnter(Collision coliision)
+    {
+        FreezeConstraints();
+    }
+
+    private void FreezeConstraints()
+    {
+        SpawnBlocks._spawnNextBlock = true;
+
+        _lockPosition = true;
+
+        _rigidbody = GetComponent<Rigidbody>();
+
+        _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+
+        GetComponent<Block_Movement>().enabled = false;
+
     }
 }

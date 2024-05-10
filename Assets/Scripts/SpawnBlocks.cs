@@ -7,6 +7,8 @@ public class SpawnBlocks : MonoBehaviour
     public string _nextBlock;
     public GameObject _currentBlock;
 
+    public static bool _spawnNextBlock;
+
     public string[] _blocks = new string[]
     {
         "I-Shaped",
@@ -23,6 +25,7 @@ public class SpawnBlocks : MonoBehaviour
     {
         _nextBlock = "";
         _currentBlock = null;
+        _spawnNextBlock = false;
 
     }
 
@@ -31,6 +34,17 @@ public class SpawnBlocks : MonoBehaviour
     {
         if (_currentBlock == null)
             ChooseNextBlock();
+
+        if(_spawnNextBlock == true)
+        {
+            ChooseNextBlock();
+            _spawnNextBlock= false;
+        }
+
+        if (Input.GetKeyDown("b"))
+        {
+            Destroy(_currentBlock);
+        }
     }
 
     private void ChooseNextBlock()
@@ -39,6 +53,7 @@ public class SpawnBlocks : MonoBehaviour
 
         SpawnBlock();
     }
+    
 
     private void SpawnBlock()
     {
