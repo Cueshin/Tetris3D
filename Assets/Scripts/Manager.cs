@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
+    public static int _screenWidthOffset;
+    public static int _screenHeightOffset;
+    public static int _playerGUIFontSize;
     public static float _currentTimerValue;
 
     public float[] _droptimer = new float[]
@@ -29,5 +32,12 @@ public class Manager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void UpdateSettings()
+    {
+        _screenWidthOffset = (Screen.width / 70);
+        _screenHeightOffset = (Screen.width / 40);
+        _playerGUIFontSize = (Screen.width / 20);
     }
 }

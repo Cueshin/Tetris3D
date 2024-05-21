@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class SpawnBlocks : MonoBehaviour
 {
-    public string _nextBlock;
+    public string _currentBlockID;
+
+    public string _nextBlockID;
     public GameObject _currentBlock;
 
     public static bool _spawnNextBlock;
@@ -23,9 +25,15 @@ public class SpawnBlocks : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _nextBlock = "";
+        _currentBlockID = "";
+        _nextBlockID = "";
+
         _currentBlock = null;
         _spawnNextBlock = false;
+
+        if(_nextBlockID == null)
+            _nextBlockID = _blocks[Random.Range(0, _blocks.Length)];
+
 
     }
 
@@ -49,15 +57,26 @@ public class SpawnBlocks : MonoBehaviour
 
     private void ChooseNextBlock()
     {
-        _nextBlock = _blocks[Random.Range(0, _blocks.Length)];
+        if(_nextBlockID != null) 
+        {
+            _currentBlockID = _nextBlockID;
+        }
 
         SpawnBlock();
+
+        _nextBlockID = _blocks[Random.Range(0, _blocks.Length)];
+
+        PlayerGUI _playerTempGUI = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PlayerGUI>();
+
+        //_playerTempGUI.SetNextBlockGUI();
+
+     
     }
     
 
     private void SpawnBlock()
     {
-        switch (_nextBlock)
+        switch (_currentBlockID)
         {
             case "I-Shaped": _currentBlock = Instantiate(Resources.Load("I-Shaped"), new Vector3(0, 10, 0), Quaternion.identity) as GameObject;
                 break;

@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 3118274313484055224}
   - component: {fileID: 4360309646040634698}
   - component: {fileID: 7225956526596766314}
-  - component: {fileID: -5517402967472534274}
+  - component: {fileID: 8151156899377144287}
   m_Layer: 0
   m_Name: I-Shaped
   m_TagString: Untagged
@@ -168,7 +168,9 @@ MonoBehaviour:
   _horizontalMoveInput: 0
   _verticalMoveInput: 0
   _movingHorizontal: 0
---- !u!54 &-5517402967472534274
+  _lockPosition: 0
+  _rigidbody: {fileID: 0}
+--- !u!54 &8151156899377144287
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

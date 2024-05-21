@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 5742260973382442804}
   - component: {fileID: -2287082464182986788}
   - component: {fileID: -4863457005792948054}
-  - component: {fileID: 1226983245961290114}
+  - component: {fileID: 662153828556950085}
   m_Layer: 0
   m_Name: J-Shaped
   m_TagString: Untagged
@@ -347,6 +347,8 @@ MonoBehaviour:
   _horizontalMoveInput: 0
   _verticalMoveInput: 0
   _movingHorizontal: 0
+  _lockPosition: 0
+  _rigidbody: {fileID: 0}
 --- !u!114 &-4863457005792948054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,7 +364,7 @@ MonoBehaviour:
   _colouredTextures: []
   _renderer: []
   _mainTexture: {fileID: 0}
---- !u!54 &1226983245961290114
+--- !u!54 &662153828556950085
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
