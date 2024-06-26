@@ -12,6 +12,8 @@ public class Manager : MonoBehaviour
     public static int _playerGUIFontSize;
     public static float _currentTimerValue;
 
+    public static int _introCountdownMax = 3;
+
     public float[] _droptimer = new float[]
     {
         0.2f,

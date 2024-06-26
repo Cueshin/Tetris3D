@@ -14,6 +14,8 @@ public class Block_Movement : MonoBehaviour
     public bool _lockPosition;
     public Rigidbody _rigidbody;
 
+    public bool _rotateButtonPressed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,8 @@ public class Block_Movement : MonoBehaviour
     void Update()
     {
         Countdown();
+
+        _rotateButtonPressed = Input.GetButton("Rotate_Toggle");
     }
     
     private void MoveBlock()
@@ -37,9 +41,17 @@ public class Block_Movement : MonoBehaviour
         if (_lockPosition == true)
             return;
         
+        if(_rotateButtonPressed == false)
+        {
+            MoveBlockHorizontal();
+            MoveBlockVertical();
+        }
 
-        MoveBlockHorizontal();
-        RotateBlockVertical();
+        if (_rotateButtonPressed == true)
+        {
+            RotateBlockVertical();
+        }
+        
         
         if(transform.position.y == 0)
         {
@@ -72,11 +84,33 @@ public class Block_Movement : MonoBehaviour
             _currentMovePause = Manager._currentTimerValue; 
         }
     }
+    private void MoveBlockVertical()
+    {
+        _verticalMoveInput = Input.GetAxis("Movement_Vertical");
+    
+ 
+        
+        if(_verticalMoveInput > 0 && _currentMovePause == 0)
+        {
+            _movingHorizontal = true;
+            _currentPosition = transform.position;
+            _currentPosition.z += 1;
+            transform.position = _currentPosition;
+        }
+        if (_verticalMoveInput < 0 && _currentMovePause == 0)
+        {
+            _movingHorizontal = true;
+            _currentPosition = transform.position;
+            _currentPosition.z -= 1;
+            transform.position = _currentPosition;
+        }
+    }
+
     private void MoveBlockHorizontal()
     {
-        _horizontalMoveInput = Input.GetAxis("Movement_Horizontal");        
-        
-        if(_horizontalMoveInput > 0 && _currentMovePause == 0)
+        _horizontalMoveInput = Input.GetAxis("Movement_Horizontal");
+
+        if (_horizontalMoveInput > 0 && _currentMovePause == 0)
         {
             _movingHorizontal = true;
             _currentPosition = transform.position;
@@ -91,6 +125,7 @@ public class Block_Movement : MonoBehaviour
             transform.position = _currentPosition;
         }
     }
+
 
     public void RotateBlockVertical()
     {

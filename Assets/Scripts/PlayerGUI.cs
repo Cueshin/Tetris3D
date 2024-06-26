@@ -10,7 +10,22 @@ public class PlayerGUI : MonoBehaviour
 
     public Texture2D _guiBackground;
     public Texture2D _guiBorder;
-    // Start is called before the first frame update
+
+    private Texture2D _IShaped;
+    private Texture2D _JShaped;
+    private Texture2D _LShaped;
+    private Texture2D _OShaped;
+    private Texture2D _SShaped;
+    private Texture2D _TShaped;
+    private Texture2D _ZShaped;
+
+    private Texture2D _nextBlockGUI;
+    private Texture2D _heldBlockGUI;
+
+    public Texture2D _threeCountdown;
+    public Texture2D _twoCountdown;
+    public Texture2D _oneCountdown;
+
     void Start()
     {
         _playerGUISkin = (GUISkin)(Resources.Load("PlayerGUISkin"));
@@ -22,6 +37,10 @@ public class PlayerGUI : MonoBehaviour
         
     }
 
+    public void SetHeldBlockGUI()
+    {
+        UnityEngine.Debug.Log("SetHeldBlockGUI");
+    }
     private void OnGUI()
     {
         _playerGUIStyle = _playerGUISkin.label;
@@ -41,6 +60,12 @@ public class PlayerGUI : MonoBehaviour
             Screen.width - (Manager._screenWidthOffset * 2),
             Screen.height - (Manager._screenHeightOffset * 2)), _guiBorder);
 
+        ////Countdown//
+        
+       /* if(SpawnBlocks._introCoundownCurrent >2)
+        {
+
+        }*/ 
         ///LEFT SIDE////
 
         GUI.Label(new Rect(0, 0, Screen.width / 4.25f,
