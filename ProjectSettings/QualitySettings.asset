@@ -198,7 +198,11 @@ QualitySettings:
     shadowCascade2Split: 0.33333334
     shadowCascade4Split: {x: 0.06666667, y: 0.2, z: 0.46666667}
     shadowmaskMode: 1
+<<<<<<< HEAD
     skinWeights: 255
+=======
+    skinWeights: 4
+>>>>>>> 578e17d5b03bac59cea7d728f839c2162f7178f0
     textureQuality: 0
     anisotropicTextures: 2
     antiAliasing: 2
@@ -224,6 +228,7 @@ QualitySettings:
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
     Android: 2
+<<<<<<< HEAD
     EmbeddedLinux: 5
     GameCoreScarlett: 5
     GameCoreXboxOne: 5
@@ -233,6 +238,16 @@ QualitySettings:
     PS4: 5
     PS5: 5
     Server: 5
+=======
+    GameCoreScarlett: 5
+    GameCoreXboxOne: 5
+    Lumin: 5
+    Nintendo 3DS: 5
+    Nintendo Switch: 5
+    PS4: 5
+    PS5: 5
+    Server: 0
+>>>>>>> 578e17d5b03bac59cea7d728f839c2162f7178f0
     Stadia: 5
     Standalone: 5
     WebGL: 3

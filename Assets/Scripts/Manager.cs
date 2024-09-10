@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
+    public static bool _randomBackground;
+    public static bool _sequentialBackground;
+
+    public static int _screenWidthOffset;
+    public static int _screenHeightOffset;
+    public static int _playerGUIFontSize;
     public static float _currentTimerValue;
+
+    public static int _introCountdownMax = 3;
 
     public float[] _droptimer = new float[]
     {
@@ -23,11 +31,23 @@ public class Manager : MonoBehaviour
     void Start()
     {
         _currentTimerValue = _droptimer[9];
+        ///test///
+        _randomBackground = true;
+        _sequentialBackground = false;
+        ///test///
+        UpdateSettings();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void UpdateSettings()
+    {
+        _screenWidthOffset = (Screen.width / 70);
+        _screenHeightOffset = (Screen.width / 40);
+        _playerGUIFontSize = (Screen.width / 40);
     }
 }

@@ -11,11 +11,17 @@ public class Block_Movement : MonoBehaviour
     public float _horizontalMoveInput;
     public float _verticalMoveInput;  
     public bool _movingHorizontal;
+    public bool _lockPosition;
+    public Rigidbody _rigidbody;
+
+    public bool _rotateButtonPressed;
 
     // Start is called before the first frame update
     void Start()
     {
         _movingHorizontal = false;
+
+        _lockPosition = false;
 
         _currentPosition = transform.position;
         _currentRotation = Quaternion.Euler(0, 0, 0);
@@ -26,12 +32,32 @@ public class Block_Movement : MonoBehaviour
     void Update()
     {
         Countdown();
+
+        _rotateButtonPressed = Input.GetButton("Rotate_Toggle");
     }
     
     private void MoveBlock()
     {
-        MoveBlockHorizontal();
-        RotateBlockVertical();
+        if (_lockPosition == true)
+            return;
+        
+        if(_rotateButtonPressed == false)
+        {
+            MoveBlockHorizontal();
+            MoveBlockVertical();
+        }
+
+        if (_rotateButtonPressed == true)
+        {
+            RotateBlockVertical();
+        }
+        
+        
+        if(transform.position.y == 0)
+        {
+            FreezeConstraints();
+            return;
+        }
 
         if (_movingHorizontal == true)
             return;
@@ -58,11 +84,33 @@ public class Block_Movement : MonoBehaviour
             _currentMovePause = Manager._currentTimerValue; 
         }
     }
+    private void MoveBlockVertical()
+    {
+        _verticalMoveInput = Input.GetAxis("Movement_Vertical");
+    
+ 
+        
+        if(_verticalMoveInput > 0 && _currentMovePause == 0)
+        {
+            _movingHorizontal = true;
+            _currentPosition = transform.position;
+            _currentPosition.z += 1;
+            transform.position = _currentPosition;
+        }
+        if (_verticalMoveInput < 0 && _currentMovePause == 0)
+        {
+            _movingHorizontal = true;
+            _currentPosition = transform.position;
+            _currentPosition.z -= 1;
+            transform.position = _currentPosition;
+        }
+    }
+
     private void MoveBlockHorizontal()
     {
-        _horizontalMoveInput = Input.GetAxis("Movement_Horizontal");        
-        
-        if(_horizontalMoveInput > 0 && _currentMovePause == 0)
+        _horizontalMoveInput = Input.GetAxis("Movement_Horizontal");
+
+        if (_horizontalMoveInput > 0 && _currentMovePause == 0)
         {
             _movingHorizontal = true;
             _currentPosition = transform.position;
@@ -78,6 +126,7 @@ public class Block_Movement : MonoBehaviour
         }
     }
 
+
     public void RotateBlockVertical()
     {
         _verticalMoveInput = Input.GetAxis("Movement_Vertical");
@@ -90,5 +139,23 @@ public class Block_Movement : MonoBehaviour
         {
             transform.Rotate(transform.position.x - 90, 0, 0, Space.Self);
         }
+    }
+    private void OnCollisionEnter(Collision coliision)
+    {
+        FreezeConstraints();
+    }
+
+    private void FreezeConstraints()
+    {
+        SpawnBlocks._spawnNextBlock = true;
+
+        _lockPosition = true;
+
+        _rigidbody = GetComponent<Rigidbody>();
+
+        _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+
+        GetComponent<Block_Movement>().enabled = false;
+
     }
 }
